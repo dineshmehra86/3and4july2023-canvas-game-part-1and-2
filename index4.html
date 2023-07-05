@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Games 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="./css/main.css" rel="stylesheet">
+</head>
+<body>
+  
+    <canvas class="myCanvas d_tbdr mx-auto bg-primary1 d-flex"></canvas>
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener( "CanvasOnLoad", canvasOnLoadHandler ); 
+
+var ctx=document.getElementById('canvas').getContext('2d');
+
+for(var x=1;x<600;x++){
+    for(var y=1;y<600;y++){
+        var color= '#' + Math.floor (Math.random() * 16777215).toString(16);
+        ctx.fillStyle=color;
+        ctx.fillRect(x,y,1,1);
+    }
+
+    // fire CanvasOnLoad when the looping is done
+    if(x>=599){
+        $.event.trigger({
+          type: "CanvasOnLoad"
+          });
+    }
+
+}
+console.log("...follows the for loops.");
+
+// handle CanvasOnLoad knowing your canvas has fully drawn
+function canvasOnLoadHandler(){
+    console.log("canvas is loaded");
+}
+</script>
+</body>
+</html>

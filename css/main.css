@@ -1,0 +1,7 @@
+.d_tbdr {
+    border: red dashed 1px;
+}
+.myCanvas {
+    width: 100%;
+    height: auto;
+}

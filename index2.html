@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Games 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="./css/main.css" rel="stylesheet">
+</head>
+<body>
+  
+    <canvas class="myCanvas d_tbdr mx-auto bg-primary1 d-flex"></canvas>
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script>
+        let canvas = document.querySelector('.myCanvas')
+        canvas.width = 991;
+        canvas.height = 730;
+        var ctx = canvas.getContext('2d');
+        // Create an image element
+        // Var object = new Classname();
+        var imageObject = new Image();
+        // set the source of image
+        imageObject.src = "./img/bg2.jpg";
+        // when imageObject is loaded, draw it on the canvas
+        imageObject.onload = function () {
+            // Draw the image on the canvas at position (x, y)
+            var x = 0;
+            var y = 0;
+            ctx.drawImage(imageObject, x, y);
+
+
+
+        // Draw the buttons on the canvas example 1
+        function drawButtons() {
+                    ctx.fillStyle = 'blue';
+                    ctx.fillRect(50, 50, 100, 50);
+
+                    ctx.fillStyle = 'red';
+                    ctx.fillRect(200, 50, 100, 50);
+
+                    ctx.fillStyle = 'green';
+                    ctx.fillRect(350, 50, 100, 50);
+
+                    ctx.font = '20px Arial';
+                    ctx.fillStyle = 'white';
+                    ctx.fillText('Button 1', 70, 80);
+                    ctx.fillText('Button 2', 220, 80);
+                    ctx.fillText('Button 3', 370, 80);
+                }
+
+                // Handle button clicks based on mouse coordinates
+                function handleButtonClick(event) {
+                    const rect = canvas.getBoundingClientRect();
+                    const x = event.clientX - rect.left;
+                    const y = event.clientY - rect.top;
+
+                    if (x >= 50 && x <= 150 && y >= 50 && y <= 100) {
+                        // Button 1 clicked
+                        console.log('Button 1 clicked');
+                    } else if (x >= 200 && x <= 300 && y >= 50 && y <= 100) {
+                        // Button 2 clicked
+                        console.log('Button 2 clicked');
+                    } else if (x >= 350 && x <= 450 && y >= 50 && y <= 100) {
+                        // Button 3 clicked
+                        console.log('Button 3 clicked');
+                    }
+                }
+
+                // Attach the click event listener to the canvas
+                canvas.addEventListener('click', handleButtonClick);
+
+                // Initial draw of buttons
+                drawButtons();
+                }
+
+
+
+
+                  // Button objects example 2
+        const buttons = [
+            { label: 'Button 1', x: 50, y: 50 },
+            { label: 'Button 2', x: 200, y: 50 },
+            { label: 'Button 3', x: 350, y: 50 }
+        ];
+
+        // Draw buttons on the canvas
+        function drawButtons() {
+            ctx.font = '16px Arial';
+            buttons.forEach(button => {
+                ctx.fillStyle = 'blue';
+                ctx.fillRect(button.x, button.y, buttonWidth, buttonHeight);
+                ctx.fillStyle = 'white';
+                ctx.fillText(button.label, button.x + 10, button.y + 25);
+            });
+        }
+
+        // Check if a button was clicked
+        function isButtonClicked(button, x, y) {
+            return x >= button.x && x <= button.x + buttonWidth && y >= button.y && y <= button.y + buttonHeight;
+        }
+
+        // Handle button clicks
+        function handleButtonClick(event) {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            buttons.forEach(button => {
+                if (isButtonClicked(button, x, y)) {
+                    console.log(`${button.label} clicked`);
+                }
+            });
+        }
+
+        // Attach the click event listener to the canvas
+        canvas.addEventListener('click', handleButtonClick);
+
+        // Initial draw of buttons
+        drawButtons();
+
+
+
+
+// example 3
+        const buttonWidth = 100;
+        const buttonHeight = 40;
+        const buttonMargin = 10;
+
+        // Button objects
+        const buttons = [
+            { label: 'Button 1', x: 50, y: 50, clicked: false },
+            { label: 'Button 2', x: 200, y: 50, clicked: false },
+            { label: 'Button 3', x: 350, y: 50, clicked: false }
+        ];
+
+        // Draw buttons on the canvas
+        function drawButtons() {
+            ctx.font = '16px Arial';
+            buttons.forEach(button => {
+                ctx.fillStyle = button.clicked ? 'red' : 'blue';
+                ctx.fillRect(button.x, button.y, buttonWidth, buttonHeight);
+                ctx.fillStyle = 'white';
+                ctx.fillText(button.label, button.x + 10, button.y + 25);
+            });
+        }
+
+        // Check if the mouse pointer is inside a button
+        function isInsideButton(button, x, y) {
+            return x >= button.x && x <= button.x + buttonWidth && y >= button.y && y <= button.y + buttonHeight;
+        }
+
+        // Handle mouse click event
+        function handleMouseClick(event) {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            buttons.forEach(button => {
+                if (isInsideButton(button, x, y)) {
+                    button.clicked = !button.clicked;
+                    drawButtons();
+                }
+            });
+        }
+
+        // Attach the click event listener to the canvas
+        canvas.addEventListener('click', handleMouseClick);
+
+        // Initial draw of buttons
+        drawButtons();
+
+
+
+
+
+        // example 4
+        const buttonWidth = 100;
+        const buttonHeight = 40;
+        const buttonMargin = 10;
+
+        // Button objects
+        const buttons = [
+            { label: 'Button 1', x: 50, y: 50, clicked: false },
+            { label: 'Button 2', x: 200, y: 50, clicked: false },
+            { label: 'Button 3', x: 350, y: 50, clicked: false }
+        ];
+
+        // Draw buttons on the canvas
+        function drawButtons() {
+            ctx.font = '16px Arial';
+            buttons.forEach(button => {
+                ctx.fillStyle = button.clicked ? 'red' : 'blue';
+                ctx.fillRect(button.x, button.y, buttonWidth, buttonHeight);
+                ctx.fillStyle = 'white';
+                ctx.fillText(button.label, button.x + 10, button.y + 25);
+            });
+        }
+
+        // Check if the mouse pointer is inside a button
+        function isInsideButton(button, x, y) {
+            return x >= button.x && x <= button.x + buttonWidth && y >= button.y && y <= button.y + buttonHeight;
+        }
+
+        // Handle mouse click event
+        function handleMouseClick(event) {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            buttons.forEach(button => {
+                if (isInsideButton(button, x, y)) {
+                    button.clicked = !button.clicked;
+                    drawButtons();
+                }
+            });
+        }
+
+        // Attach the click event listener to the canvas
+        canvas.addEventListener('click', handleMouseClick);
+
+        // Initial draw of buttons
+        drawButtons();
+    </script>
+</body>
+</html>

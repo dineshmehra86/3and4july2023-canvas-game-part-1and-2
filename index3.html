@@ -1,0 +1,69 @@
+let canvas = document.querySelector('.myCanvas');
+var ctx = canvas.getContext('2d');
+
+const buttonWidth = 100;
+const buttonHeight = 40;
+const buttonMargin = 10;
+
+// Button objects
+const buttons = [
+    { label: 'Button 1', x: 50, y: 50 },
+    { label: 'Button 2', x: 200, y: 50 },
+    { label: 'Button 3', x: 350, y: 50 }
+];
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Redraw the canvas and buttons
+    drawCanvas();
+    drawButtons();
+}
+
+// Draw the canvas background
+function drawCanvas() {
+    var imageObject = new Image();
+    imageObject.src = "./img/bg2.jpg";
+    imageObject.onload = function () {
+        ctx.drawImage(imageObject, 0, 0, canvas.width, canvas.height);
+    };
+}
+
+// Draw buttons on the canvas
+function drawButtons() {
+    ctx.font = '16px Arial';
+    buttons.forEach(button => {
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(button.x, button.y, buttonWidth, buttonHeight);
+        ctx.fillStyle = 'white';
+        ctx.fillText(button.label, button.x + 10, button.y + 25);
+    });
+}
+
+// Check if a button was clicked
+function isButtonClicked(button, x, y) {
+    return x >= button.x && x <= button.x + buttonWidth && y >= button.y && y <= button.y + buttonHeight;
+}
+
+// Handle button clicks
+function handleButtonClick(event) {
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    buttons.forEach(button => {
+        if (isButtonClicked(button, x, y)) {
+            console.log(`${button.label} clicked`);
+        }
+    });
+}
+
+// Attach the click event listener to the canvas
+canvas.addEventListener('click', handleButtonClick);
+
+// Resize the canvas when the window is resized
+window.addEventListener('resize', resizeCanvas);
+
+// Initial setup
+resizeCanvas();
